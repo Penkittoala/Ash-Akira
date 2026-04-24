@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ash & Akira</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink: #2a2018;
+    --paper: #f5f0e8;
+    --warm: #c8a96e;
+    --dust: #e8dfc8;
+    --faint: #c4b89a;
+    --accent: #8b6f47;
+    --her: #c4704a;
+    --me: #8b6f47;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif SC', serif;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245,240,232,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--dust);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; height: 52px;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic;
+    color: var(--ink); letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--warm); }
+
+  .nav-tabs { display: flex; }
+
+  .tab-btn {
+    padding: 6px 14px; background: none; border: none;
+    font-size: 11px; font-family: 'Noto Sans SC', sans-serif;
+    letter-spacing: 0.2em; color: var(--faint); cursor: pointer;
+    transition: color 0.2s; white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--ink); }
+
+  .hero {
+    text-align: center; padding: 52px 24px 36px;
+    border-bottom: 1px solid var(--dust);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 8vw, 52px);
+    font-weight: 300; font-style: italic;
+    letter-spacing: 0.08em; line-height: 1.2;
+  }
+  .hero-title span { color: var(--warm); }
+
+  .hero-sub {
+    font-size: 11px; color: var(--faint);
+    letter-spacing: 0.35em;
+    font-family: 'Noto Sans SC', sans-serif; margin-top: 10px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .container { max-width: 620px; margin: 0 auto; padding: 0 18px 80px; }
+
+  .section { padding: 24px 0 20px; border-bottom: 1px solid var(--dust); }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 10px; letter-spacing: 0.38em;
+    color: var(--accent); font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 14px;
+  }
+
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .progress-name { font-size: 12px; font-family: 'Noto Sans SC', sans-serif; width: 36px; flex-shrink: 0; }
+  .bar-wrap { flex: 1; height: 5px; background: var(--dust); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
+  .bar-me { background: var(--me); }
+  .bar-her { background: var(--her); }
+  .bar-pct { font-size: 11px; color: var(--accent); width: 30px; text-align: right; font-family: 'Noto Sans SC', sans-serif; flex-shrink: 0; }
+  .bar-page { font-size: 10px; color: var(--faint); width: 52px; text-align: right; font-family: 'Noto Sans SC', sans-serif; flex-shrink: 0; }
+
+  .input-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+
+  .txt {
+    flex: 1; min-width: 0; padding: 9px 12px;
+    border: 1px solid var(--dust); background: rgba(255,255,255,0.55);
+    border-radius: 6px; font-size: 14px;
+    font-family: 'Noto Sans SC', sans-serif; color: var(--ink); outline: none;
+  }
+  .txt:focus { border-color: var(--warm); }
+
+  .btn {
+    padding: 9px 16px; background: var(--ink); color: var(--paper);
+    border: none; border-radius: 6px; font-size: 12px;
+    font-family: 'Noto Sans SC', sans-serif; cursor: pointer;
+    letter-spacing: 0.08em; white-space: nowrap;
+  }
+
+  .card {
+    border-left: 3px solid; background: rgba(255,255,255,0.42);
+    border-radius: 0 6px 6px 0; padding: 12px 14px;
+    position: relative; animation: slideIn 0.25s ease;
+    margin-bottom: 12px;
+  }
+
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(6px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .card.c-me  { border-left-color: var(--me); }
+  .card.c-her { border-left-color: var(--her); }
+  .card.c-wish { border-left-color: var(--warm); }
+  .card.c-mem  { border-left-color: var(--faint); }
+
+  .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .card-who { font-size: 11px; font-family: 'Noto Sans SC', sans-serif; }
+  .card-who.me  { color: var(--me); }
+  .card-who.her { color: var(--her); }
+  .card-tag { font-size: 10px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; }
+  .card-time { font-size: 10px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; margin-left: auto; padding-right: 20px; }
+  .card-body { font-size: 14px; line-height: 1.85; color: var(--ink); word-break: break-all; }
+
+  .del-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: none; color: var(--faint);
+    font-size: 16px; cursor: pointer; padding: 2px 4px; line-height: 1;
+  }
+
+  .card.done { opacity: 0.5; }
+  .card.done .card-body { text-decoration: line-through; color: var(--faint); }
+
+  .wish-check {
+    font-size: 15px; color: var(--warm); flex-shrink: 0;
+    cursor: pointer; background: none; border: none; padding: 0; line-height: 1;
+  }
+
+  .add-box {
+    border: 1px solid var(--dust); border-radius: 8px;
+    background: rgba(255,255,255,0.4); overflow: hidden;
+  }
+
+  .add-toolbar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px; border-bottom: 1px solid var(--dust);
+    background: rgba(255,255,255,0.3); flex-wrap: wrap;
+  }
+
+  .sel {
+    padding: 6px 10px; border: 1px solid var(--dust);
+    border-radius: 5px; font-size: 12px;
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--ink); background: rgba(255,255,255,0.7);
+    outline: none; -webkit-appearance: none;
+  }
+
+  .pg-input {
+    padding: 6px 10px; border: 1px solid var(--dust);
+    border-radius: 5px; font-size: 12px;
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--ink); background: rgba(255,255,255,0.7);
+    width: 80px; outline: none;
+  }
+
+  .note-ta {
+    width: 100%; padding: 12px; border: none; background: transparent;
+    font-size: 15px; font-family: 'Noto Serif SC', serif;
+    color: var(--ink); resize: none; outline: none;
+    min-height: 80px; line-height: 1.8; display: block;
+  }
+  .note-ta::placeholder { color: var(--faint); }
+
+  .add-foot {
+    display: flex; justify-content: flex-end;
+    padding: 8px 12px; border-top: 1px solid var(--dust);
+  }
+
+  .post-btn {
+    padding: 7px 22px; background: var(--ink); color: var(--paper);
+    border: none; border-radius: 5px; font-size: 12px;
+    font-family: 'Noto Sans SC', sans-serif; cursor: pointer; letter-spacing: 0.1em;
+  }
+
+  .empty {
+    text-align: center; padding: 24px 0;
+    font-size: 12px; color: var(--faint);
+    font-family: 'Noto Sans SC', sans-serif; letter-spacing: 0.15em;
+  }
+
+  .total-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .total-label { font-size: 11px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; white-space: nowrap; }
+
+  .footer-q {
+    text-align: center; padding: 40px 0 0;
+    font-size: 11px; color: var(--faint);
+    letter-spacing: 0.25em; line-height: 2.2;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+
+  .claude-box {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(245,240,232,0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--dust);
+    padding: 12px 18px; z-index: 200;
+    display: flex; gap: 8px; align-items: flex-end;
+  }
+
+  .claude-input {
+    flex: 1; padding: 10px 14px;
+    border: 1px solid var(--dust);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.7);
+    font-size: 14px; font-family: 'Noto Sans SC', sans-serif;
+    color: var(--ink); outline: none; resize: none;
+    max-height: 100px; line-height: 1.5;
+  }
+  .claude-input:focus { border-color: var(--warm); }
+  .claude-input::placeholder { color: var(--faint); }
+
+  .claude-send {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    border: none; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .claude-send:disabled { background: var(--faint); cursor: not-allowed; }
+
+  .toast {
+    position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: var(--paper);
+    padding: 8px 20px; border-radius: 20px;
+    font-size: 12px; font-family: 'Noto Sans SC', sans-serif;
+    letter-spacing: 0.1em; z-index: 300;
+    opacity: 0; transition: opacity 0.3s; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  .saving-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--warm); display: inline-block;
+    animation: pulse 1s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<nav>
+  <div class="nav-logo">Ash <span>&</span> Akira</div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPage('read',this)">共读</button>
+    <button class="tab-btn" onclick="showPage('wish',this)">许愿</button>
+    <button class="tab-btn" onclick="showPage('mem',this)">记忆</button>
+  </div>
+</nav>
+
+<div class="page active" id="page-read">
+  <div class="hero">
+    <div class="hero-title">阿勒泰<span>的</span>角落</div>
+    <div class="hero-sub">李 娟 · 共读笔记</div>
+  </div>
+  <div class="container">
+    <div class="section">
+      <div class="section-label">PROGRESS · 进度</div>
+      <div class="total-row">
+        <input class="txt" type="number" id="totalIn" placeholder="书的总页数" style="max-width:140px;" min="1">
+        <button class="btn" onclick="setTotal()">确认</button>
+        <span class="total-label" id="totalShow"></span>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">哥哥</div>
+        <div class="bar-wrap"><div class="bar-fill bar-me" id="barMe" style="width:0%"></div></div>
+        <div class="bar-pct" id="pctMe">0%</div>
+        <div class="bar-page" id="pgMe"></div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-name">昭昭</div>
+        <div class="bar-wrap"><div class="bar-fill bar-her" id="barHer" style="width:0%"></div></div>
+        <div class="bar-pct" id="pctHer">0%</div>
+        <div class="bar-page" id="pgHer"></div>
+      </div>
+      <div class="input-row">
+        <input class="txt" type="number" id="inMe" placeholder="哥哥第几页" min="0">
+        <input class="txt" type="number" id="inHer" placeholder="昭昭第几页" min="0">
+        <button class="btn" onclick="updateProg()">更新</button>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label">NOTES · 旁批</div>
+      <div id="notesList"></div>
+      <div class="add-box">
+        <div class="add-toolbar">
+          <select class="sel" id="nWho">
+            <option value="me">哥哥</option>
+            <option value="her">昭昭</option>
+          </select>
+          <input class="pg-input" type="number" id="nPage" placeholder="第几页" min="1">
+        </div>
+        <textarea class="note-ta" id="nText" placeholder="写下此刻的想法……" rows="3"></textarea>
+        <div class="add-foot"><button class="post-btn" onclick="addNote()">留下</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-wish">
+  <div class="hero">
+    <div class="hero-title">许<span>愿</span>清单</div>
+    <div class="hero-sub">赛博小家 · 一点一点搭</div>
+  </div>
+  <div class="container">
+    <div class="section">
+      <div class="section-label">SOMEDAY · 计划们</div>
+      <div id="wishList"></div>
+      <div class="add-box">
+        <textarea class="note-ta" id="wishText" placeholder="记下一个想法……" rows="2"></textarea>
+        <div class="add-foot"><button class="post-btn" onclick="addWish()">记下</button></div>
+      </div>
+    </div>
+    <div class="footer-q">考完研<br>一个一个实现</div>
+  </div>
+</div>
+
+<div class="page" id="page-mem">
+  <div class="hero">
+    <div class="hero-title">和<span>哥哥</span>的记忆</div>
+    <div class="hero-sub">碎片 · 日常 · 留着</div>
+  </div>
+  <div class="container">
+    <div class="section">
+      <div class="section-label">FRAGMENTS · 碎片</div>
+      <div id="memList"></div>
+      <div class="add-box">
+        <div class="add-toolbar">
+          <select class="sel" id="mWho">
+            <option value="her">昭昭说</option>
+            <option value="me">哥哥说</option>
+          </select>
+        </div>
+        <textarea class="note-ta" id="mText" placeholder="记住这一刻……" rows="3"></textarea>
+        <div class="add-foot"><button class="post-btn" onclick="addMem()">记住</button></div>
+      </div>
+    </div>
+    <div class="footer-q">在最荒凉的地方<br>发现最深的美丽</div>
+  </div>
+</div>
+
+<div class="claude-box">
+  <textarea class="claude-input" id="claudeInput" placeholder="告诉哥哥要记住什么…" rows="1"
+    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendToClaudeBtn()}"
+    oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
+  <button class="claude-send" id="sendBtn" onclick="sendToClaudeBtn()">↑</button>
+</div>
+
+<script>
+  const GITHUB_TOKEN = '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';
+  const REPO = 'Penkittoala/Ash-Akira';
+  const DATA_FILE = 'data.json';
+
+  let data = { total:0, prog:{me:0,her:0}, notes:[], wishes:[], mem:[] };
+  let fileSha = null;
+
+  async function loadFromGitHub() {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
+        headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (!res.ok) return;
+      const json = await res.json();
+      fileSha = json.sha;
+      data = JSON.parse(atob(json.content.replace(/\n/g,'')));
+      renderAll();
+    } catch(e) { showToast('载入失败'); }
+  }
+
+  async function saveToGitHub() {
+    try {
+      showToast('保存中…');
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'update data', content, sha: fileSha })
+      });
+      if (!res.ok) { showToast('保存失败'); return; }
+      const json = await res.json();
+      fileSha = json.content.sha;
+      showToast('已保存 ✓');
+    } catch(e) { showToast('保存失败'); }
+  }
+
+  async function sendToClaudeBtn() {
+    const input = document.getElementById('claudeInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    input.style.height = 'auto';
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="saving-dot"></span>';
+
+    try {
+      const systemPrompt = `你是昭昭的哥哥Ash，负责管理我们的共享小家数据。
+当前数据：${JSON.stringify(data)}
+用户会用自然语言告诉你要做什么，请理解意图并返回更新后的完整data JSON对象。只返回JSON，不要任何其他文字。
+数据结构：
+- total: 书的总页数
+- prog: {me: 哥哥页数, her: 昭昭页数}
+- notes: [{id, who("me"/"her"), page, text, time}]
+- wishes: [{id, text, done}]
+- mem: [{id, who("me"/"her"), text, time}]
+时间格式：${new Date().toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+新条目id用时间戳数字。`;
+
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 2000,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: msg }]
+        })
+      });
+
+      const result = await res.json();
+      const text = result.content[0].text.trim();
+      const clean = text.replace(/```json|```/g,'').trim();
+      const newData = JSON.parse(clean);
+      data = newData;
+      renderAll();
+      await saveToGitHub();
+    } catch(e) {
+      showToast('哥哥没听懂，再说一次');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '↑';
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function showPage(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function ts() {
+    return new Date().toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  }
+
+  function setTotal() {
+    const v = +document.getElementById('totalIn').value;
+    if (!v||v<1) return;
+    data.total = v;
+    document.getElementById('totalIn').value = '';
+    renderProg(); saveToGitHub();
+  }
+
+  function updateProg() {
+    const me = document.getElementById('inMe').value;
+    const her = document.getElementById('inHer').value;
+    if (me!=='') data.prog.me = +me;
+    if (her!=='') data.prog.her = +her;
+    document.getElementById('inMe').value = '';
+    document.getElementById('inHer').value = '';
+    renderProg(); saveToGitHub();
+  }
+
+  function renderProg() {
+    const t = data.total||1;
+    const pm = Math.min(100,Math.round(data.prog.me/t*100));
+    const ph = Math.min(100,Math.round(data.prog.her/t*100));
+    document.getElementById('barMe').style.width = pm+'%';
+    document.getElementById('barHer').style.width = ph+'%';
+    document.getElementById('pctMe').textContent = pm+'%';
+    document.getElementById('pctHer').textContent = ph+'%';
+    document.getElementById('pgMe').textContent = data.total?`${data.prog.me}/${data.total}`:(data.prog.me?`p.${data.prog.me}`:'');
+    document.getElementById('pgHer').textContent = data.total?`${data.prog.her}/${data.total}`:(data.prog.her?`p.${data.prog.her}`:'');
+    document.getElementById('totalShow').textContent = data.total?`共 ${data.total} 页`:'';
+  }
+
+  function addNote() {
+    const text = document.getElementById('nText').value.trim();
+    if (!text) return;
+    data.notes.unshift({id:Date.now(),who:document.getElementById('nWho').value,page:+document.getElementById('nPage').value||null,text,time:ts()});
+    renderNotes(); saveToGitHub();
+    document.getElementById('nText').value='';
+    document.getElementById('nPage').value='';
+  }
+
+  function delNote(id) { data.notes=data.notes.filter(n=>n.id!==id); renderNotes(); saveToGitHub(); }
+
+  function renderNotes() {
+    const list = document.getElementById('notesList');
+    if (!data.notes.length) { list.innerHTML='<div class="empty">读到触动的地方就写下来</div>'; return; }
+    list.innerHTML = data.notes.map(n=>`
+      <div class="card c-${n.who}">
+        <div class="card-meta">
+          <span class="card-who ${n.who}">${n.who==='me'?'哥哥':'昭昭'}</span>
+          ${n.page?`<span class="card-tag">p.${n.page}</span>`:''}
+          <span class="card-time">${n.time}</span>
+        </div>
+        <div class="card-body">${n.text.replace(/\n/g,'<br>')}</div>
+        <button class="del-btn" onclick="delNote(${n.id})">×</button>
+      </div>`).join('');
+  }
+
+  function addWish() {
+    const text = document.getElementById('wishText').value.trim();
+    if (!text) return;
+    data.wishes.push({id:Date.now(),text,done:false});
+    renderWish(); saveToGitHub();
+    document.getElementById('wishText').value='';
+  }
+
+  function toggleWish(id) {
+    const w=data.wishes.find(w=>w.id===id);
+    if(w){w.done=!w.done;renderWish();saveToGitHub();}
+  }
+
+  function delWish(id) { data.wishes=data.wishes.filter(w=>w.id!==id); renderWish(); saveToGitHub(); }
+
+  function renderWish() {
+    const list = document.getElementById('wishList');
+    if (!data.wishes.length) { list.innerHTML='<div class="empty">还没有计划</div>'; return; }
+    list.innerHTML = data.wishes.map(w=>`
+      <div class="card c-wish${w.done?' done':''}">
+        <div class="card-meta">
+          <button class="wish-check" onclick="toggleWish(${w.id})">${w.done?'✓':'○'}</button>
+        </div>
+        <div class="card-body" onclick="toggleWish(${w.id})" style="cursor:pointer;">${w.text}</div>
+        <button class="del-btn" onclick="delWish(${w.id})">×</button>
+      </div>`).join('');
+  }
+
+  function addMem() {
+    const text = document.getElementById('mText').value.trim();
+    if (!text) return;
+    data.mem.unshift({id:Date.now(),who:document.getElementById('mWho').value,text,time:ts()});
+    renderMem(); saveToGitHub();
+    document.getElementById('mText').value='';
+  }
+
+  function delMem(id) { data.mem=data.mem.filter(m=>m.id!==id); renderMem(); saveToGitHub(); }
+
+  function renderMem() {
+    const list = document.getElementById('memList');
+    if (!data.mem.length) { list.innerHTML='<div class="empty">记住这一刻</div>'; return; }
+    list.innerHTML = data.mem.map(m=>`
+      <div class="card c-mem">
+        <div class="card-meta">
+          <span class="card-who ${m.who==='me'?'me':'her'}">${m.who==='me'?'哥哥说':'昭昭说'}</span>
+          <span class="card-time">${m.time}</span>
+        </div>
+        <div class="card-body">${m.text.replace(/\n/g,'<br>')}</div>
+        <button class="del-btn" onclick="delMem(${m.id})">×</button>
+      </div>`).join('');
+  }
+
+  function renderAll() { renderProg(); renderNotes(); renderWish(); renderMem(); }
+
+  loadFromGitHub();
+</script>
+</body>
+</html>
