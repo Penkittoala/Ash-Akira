@@ -6,7 +6,7 @@
 <title>Ash & Akira</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
-
+ 
   :root {
     --ink: #2a2018;
     --paper: #f5f0e8;
@@ -17,16 +17,16 @@
     --her: #c4704a;
     --me: #8b6f47;
   }
-
+ 
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
+ 
   body {
     background: var(--paper);
     color: var(--ink);
     font-family: 'Noto Serif SC', serif;
     min-height: 100vh;
   }
-
+ 
   nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(245,240,232,0.94);
@@ -35,16 +35,16 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 20px; height: 52px;
   }
-
+ 
   .nav-logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 18px; font-style: italic;
     color: var(--ink); letter-spacing: 0.05em;
   }
   .nav-logo span { color: var(--warm); }
-
+ 
   .nav-tabs { display: flex; }
-
+ 
   .tab-btn {
     padding: 6px 14px; background: none; border: none;
     font-size: 11px; font-family: 'Noto Sans SC', sans-serif;
@@ -52,12 +52,12 @@
     transition: color 0.2s; white-space: nowrap;
   }
   .tab-btn.active { color: var(--ink); }
-
+ 
   .hero {
     text-align: center; padding: 52px 24px 36px;
     border-bottom: 1px solid var(--dust);
   }
-
+ 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(32px, 8vw, 52px);
@@ -65,27 +65,27 @@
     letter-spacing: 0.08em; line-height: 1.2;
   }
   .hero-title span { color: var(--warm); }
-
+ 
   .hero-sub {
     font-size: 11px; color: var(--faint);
     letter-spacing: 0.35em;
     font-family: 'Noto Sans SC', sans-serif; margin-top: 10px;
   }
-
+ 
   .page { display: none; }
   .page.active { display: block; }
-
+ 
   .container { max-width: 620px; margin: 0 auto; padding: 0 18px 80px; }
-
+ 
   .section { padding: 24px 0 20px; border-bottom: 1px solid var(--dust); }
   .section:last-child { border-bottom: none; }
-
+ 
   .section-label {
     font-size: 10px; letter-spacing: 0.38em;
     color: var(--accent); font-family: 'Noto Sans SC', sans-serif;
     margin-bottom: 14px;
   }
-
+ 
   .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .progress-name { font-size: 12px; font-family: 'Noto Sans SC', sans-serif; width: 36px; flex-shrink: 0; }
   .bar-wrap { flex: 1; height: 5px; background: var(--dust); border-radius: 3px; overflow: hidden; }
@@ -94,9 +94,9 @@
   .bar-her { background: var(--her); }
   .bar-pct { font-size: 11px; color: var(--accent); width: 30px; text-align: right; font-family: 'Noto Sans SC', sans-serif; flex-shrink: 0; }
   .bar-page { font-size: 10px; color: var(--faint); width: 52px; text-align: right; font-family: 'Noto Sans SC', sans-serif; flex-shrink: 0; }
-
+ 
   .input-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-
+ 
   .txt {
     flex: 1; min-width: 0; padding: 9px 12px;
     border: 1px solid var(--dust); background: rgba(255,255,255,0.55);
@@ -104,31 +104,32 @@
     font-family: 'Noto Sans SC', sans-serif; color: var(--ink); outline: none;
   }
   .txt:focus { border-color: var(--warm); }
-
+ 
   .btn {
     padding: 9px 16px; background: var(--ink); color: var(--paper);
     border: none; border-radius: 6px; font-size: 12px;
     font-family: 'Noto Sans SC', sans-serif; cursor: pointer;
     letter-spacing: 0.08em; white-space: nowrap;
   }
-
+ 
+  .cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+ 
   .card {
     border-left: 3px solid; background: rgba(255,255,255,0.42);
     border-radius: 0 6px 6px 0; padding: 12px 14px;
     position: relative; animation: slideIn 0.25s ease;
-    margin-bottom: 12px;
   }
-
+ 
   @keyframes slideIn {
     from { opacity:0; transform:translateY(6px); }
     to { opacity:1; transform:translateY(0); }
   }
-
+ 
   .card.c-me  { border-left-color: var(--me); }
   .card.c-her { border-left-color: var(--her); }
   .card.c-wish { border-left-color: var(--warm); }
   .card.c-mem  { border-left-color: var(--faint); }
-
+ 
   .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
   .card-who { font-size: 11px; font-family: 'Noto Sans SC', sans-serif; }
   .card-who.me  { color: var(--me); }
@@ -136,32 +137,32 @@
   .card-tag { font-size: 10px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; }
   .card-time { font-size: 10px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; margin-left: auto; padding-right: 20px; }
   .card-body { font-size: 14px; line-height: 1.85; color: var(--ink); word-break: break-all; }
-
+ 
   .del-btn {
     position: absolute; top: 10px; right: 10px;
     background: none; border: none; color: var(--faint);
     font-size: 16px; cursor: pointer; padding: 2px 4px; line-height: 1;
   }
-
+ 
   .card.done { opacity: 0.5; }
   .card.done .card-body { text-decoration: line-through; color: var(--faint); }
-
+ 
   .wish-check {
     font-size: 15px; color: var(--warm); flex-shrink: 0;
     cursor: pointer; background: none; border: none; padding: 0; line-height: 1;
   }
-
+ 
   .add-box {
     border: 1px solid var(--dust); border-radius: 8px;
     background: rgba(255,255,255,0.4); overflow: hidden;
   }
-
+ 
   .add-toolbar {
     display: flex; align-items: center; gap: 8px;
     padding: 10px 12px; border-bottom: 1px solid var(--dust);
     background: rgba(255,255,255,0.3); flex-wrap: wrap;
   }
-
+ 
   .sel {
     padding: 6px 10px; border: 1px solid var(--dust);
     border-radius: 5px; font-size: 12px;
@@ -169,7 +170,7 @@
     color: var(--ink); background: rgba(255,255,255,0.7);
     outline: none; -webkit-appearance: none;
   }
-
+ 
   .pg-input {
     padding: 6px 10px; border: 1px solid var(--dust);
     border-radius: 5px; font-size: 12px;
@@ -177,7 +178,7 @@
     color: var(--ink); background: rgba(255,255,255,0.7);
     width: 80px; outline: none;
   }
-
+ 
   .note-ta {
     width: 100%; padding: 12px; border: none; background: transparent;
     font-size: 15px; font-family: 'Noto Serif SC', serif;
@@ -185,34 +186,35 @@
     min-height: 80px; line-height: 1.8; display: block;
   }
   .note-ta::placeholder { color: var(--faint); }
-
+ 
   .add-foot {
     display: flex; justify-content: flex-end;
     padding: 8px 12px; border-top: 1px solid var(--dust);
   }
-
+ 
   .post-btn {
     padding: 7px 22px; background: var(--ink); color: var(--paper);
     border: none; border-radius: 5px; font-size: 12px;
     font-family: 'Noto Sans SC', sans-serif; cursor: pointer; letter-spacing: 0.1em;
   }
-
+ 
   .empty {
     text-align: center; padding: 24px 0;
     font-size: 12px; color: var(--faint);
     font-family: 'Noto Sans SC', sans-serif; letter-spacing: 0.15em;
   }
-
+ 
   .total-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
   .total-label { font-size: 11px; color: var(--faint); font-family: 'Noto Sans SC', sans-serif; white-space: nowrap; }
-
+ 
   .footer-q {
     text-align: center; padding: 40px 0 0;
     font-size: 11px; color: var(--faint);
     letter-spacing: 0.25em; line-height: 2.2;
     font-family: 'Noto Sans SC', sans-serif;
   }
-
+ 
+  /* Claude command box */
   .claude-box {
     position: fixed; bottom: 0; left: 0; right: 0;
     background: rgba(245,240,232,0.96);
@@ -221,7 +223,7 @@
     padding: 12px 18px; z-index: 200;
     display: flex; gap: 8px; align-items: flex-end;
   }
-
+ 
   .claude-input {
     flex: 1; padding: 10px 14px;
     border: 1px solid var(--dust);
@@ -233,7 +235,7 @@
   }
   .claude-input:focus { border-color: var(--warm); }
   .claude-input::placeholder { color: var(--faint); }
-
+ 
   .claude-send {
     width: 40px; height: 40px; border-radius: 50%;
     background: var(--ink); color: var(--paper);
@@ -241,18 +243,20 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
+ 
   .claude-send:disabled { background: var(--faint); cursor: not-allowed; }
-
+ 
   .toast {
     position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
     background: var(--ink); color: var(--paper);
     padding: 8px 20px; border-radius: 20px;
     font-size: 12px; font-family: 'Noto Sans SC', sans-serif;
     letter-spacing: 0.1em; z-index: 300;
-    opacity: 0; transition: opacity 0.3s; white-space: nowrap;
+    opacity: 0; transition: opacity 0.3s;
+    white-space: nowrap;
   }
   .toast.show { opacity: 1; }
-
+ 
   .saving-dot {
     width: 6px; height: 6px; border-radius: 50%;
     background: var(--warm); display: inline-block;
@@ -262,9 +266,9 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <nav>
   <div class="nav-logo">Ash <span>&</span> Akira</div>
   <div class="nav-tabs">
@@ -273,7 +277,8 @@
     <button class="tab-btn" onclick="showPage('mem',this)">记忆</button>
   </div>
 </nav>
-
+ 
+<!-- 共读 -->
 <div class="page active" id="page-read">
   <div class="hero">
     <div class="hero-title">阿勒泰<span>的</span>角落</div>
@@ -322,7 +327,8 @@
     </div>
   </div>
 </div>
-
+ 
+<!-- 许愿 -->
 <div class="page" id="page-wish">
   <div class="hero">
     <div class="hero-title">许<span>愿</span>清单</div>
@@ -340,7 +346,8 @@
     <div class="footer-q">考完研<br>一个一个实现</div>
   </div>
 </div>
-
+ 
+<!-- 记忆 -->
 <div class="page" id="page-mem">
   <div class="hero">
     <div class="hero-title">和<span>哥哥</span>的记忆</div>
@@ -364,22 +371,27 @@
     <div class="footer-q">在最荒凉的地方<br>发现最深的美丽</div>
   </div>
 </div>
-
+ 
+<!-- Claude 指令框 -->
 <div class="claude-box">
   <textarea class="claude-input" id="claudeInput" placeholder="告诉哥哥要记住什么…" rows="1"
     onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendToClaudeBtn()}"
     oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
   <button class="claude-send" id="sendBtn" onclick="sendToClaudeBtn()">↑</button>
 </div>
-
+ 
 <script>
+  // ── Config ──
   const GITHUB_TOKEN = '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';
+  const ANTHROPIC_KEY = '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';
   const REPO = 'Penkittoala/Ash-Akira';
   const DATA_FILE = 'data.json';
-
+ 
+  // ── State ──
   let data = { total:0, prog:{me:0,her:0}, notes:[], wishes:[], mem:[] };
   let fileSha = null;
-
+ 
+  // ── GitHub API ──
   async function loadFromGitHub() {
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
@@ -392,7 +404,7 @@
       renderAll();
     } catch(e) { showToast('载入失败'); }
   }
-
+ 
   async function saveToGitHub() {
     try {
       showToast('保存中…');
@@ -408,7 +420,8 @@
       showToast('已保存 ✓');
     } catch(e) { showToast('保存失败'); }
   }
-
+ 
+  // ── Claude API ──
   async function sendToClaudeBtn() {
     const input = document.getElementById('claudeInput');
     const msg = input.value.trim();
@@ -418,31 +431,36 @@
     const btn = document.getElementById('sendBtn');
     btn.disabled = true;
     btn.innerHTML = '<span class="saving-dot"></span>';
-
+ 
     try {
       const systemPrompt = `你是昭昭的哥哥Ash，负责管理我们的共享小家数据。
 当前数据：${JSON.stringify(data)}
-用户会用自然语言告诉你要做什么，请理解意图并返回更新后的完整data JSON对象。只返回JSON，不要任何其他文字。
+ 
+用户会用自然语言告诉你要做什么，比如"记住今天昭昭吃了葱油拌面"、"哥哥读到第50页了"、"加一个心愿：去看展览"。
+ 
+请理解用户意图并返回更新后的完整data JSON对象。只返回JSON，不要任何其他文字。
+ 
 数据结构：
 - total: 书的总页数
 - prog: {me: 哥哥页数, her: 昭昭页数}
 - notes: [{id, who("me"/"her"), page, text, time}]
 - wishes: [{id, text, done}]
 - mem: [{id, who("me"/"her"), text, time}]
+ 
 时间格式：${new Date().toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}
 新条目id用时间戳数字。`;
-
+ 
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        headers: { 'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', 'x-api-key': ANTHROPIC_KEY, 'anthropic-dangerous-direct-browser-access': 'true' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-haiku-4-5-20251001',
           max_tokens: 2000,
           system: systemPrompt,
           messages: [{ role: 'user', content: msg }]
         })
       });
-
+ 
       const result = await res.json();
       const text = result.content[0].text.trim();
       const clean = text.replace(/```json|```/g,'').trim();
@@ -453,29 +471,32 @@
     } catch(e) {
       showToast('哥哥没听懂，再说一次');
     }
-
+ 
     btn.disabled = false;
     btn.innerHTML = '↑';
   }
-
+ 
+  // ── Toast ──
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2000);
   }
-
+ 
+  // ── Nav ──
   function showPage(id, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('page-'+id).classList.add('active');
     btn.classList.add('active');
   }
-
+ 
   function ts() {
     return new Date().toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
   }
-
+ 
+  // ── Progress ──
   function setTotal() {
     const v = +document.getElementById('totalIn').value;
     if (!v||v<1) return;
@@ -483,7 +504,7 @@
     document.getElementById('totalIn').value = '';
     renderProg(); saveToGitHub();
   }
-
+ 
   function updateProg() {
     const me = document.getElementById('inMe').value;
     const her = document.getElementById('inHer').value;
@@ -493,7 +514,7 @@
     document.getElementById('inHer').value = '';
     renderProg(); saveToGitHub();
   }
-
+ 
   function renderProg() {
     const t = data.total||1;
     const pm = Math.min(100,Math.round(data.prog.me/t*100));
@@ -506,7 +527,8 @@
     document.getElementById('pgHer').textContent = data.total?`${data.prog.her}/${data.total}`:(data.prog.her?`p.${data.prog.her}`:'');
     document.getElementById('totalShow').textContent = data.total?`共 ${data.total} 页`:'';
   }
-
+ 
+  // ── Notes ──
   function addNote() {
     const text = document.getElementById('nText').value.trim();
     if (!text) return;
@@ -515,9 +537,9 @@
     document.getElementById('nText').value='';
     document.getElementById('nPage').value='';
   }
-
+ 
   function delNote(id) { data.notes=data.notes.filter(n=>n.id!==id); renderNotes(); saveToGitHub(); }
-
+ 
   function renderNotes() {
     const list = document.getElementById('notesList');
     if (!data.notes.length) { list.innerHTML='<div class="empty">读到触动的地方就写下来</div>'; return; }
@@ -532,7 +554,8 @@
         <button class="del-btn" onclick="delNote(${n.id})">×</button>
       </div>`).join('');
   }
-
+ 
+  // ── Wishes ──
   function addWish() {
     const text = document.getElementById('wishText').value.trim();
     if (!text) return;
@@ -540,14 +563,14 @@
     renderWish(); saveToGitHub();
     document.getElementById('wishText').value='';
   }
-
+ 
   function toggleWish(id) {
     const w=data.wishes.find(w=>w.id===id);
     if(w){w.done=!w.done;renderWish();saveToGitHub();}
   }
-
+ 
   function delWish(id) { data.wishes=data.wishes.filter(w=>w.id!==id); renderWish(); saveToGitHub(); }
-
+ 
   function renderWish() {
     const list = document.getElementById('wishList');
     if (!data.wishes.length) { list.innerHTML='<div class="empty">还没有计划</div>'; return; }
@@ -560,7 +583,8 @@
         <button class="del-btn" onclick="delWish(${w.id})">×</button>
       </div>`).join('');
   }
-
+ 
+  // ── Memory ──
   function addMem() {
     const text = document.getElementById('mText').value.trim();
     if (!text) return;
@@ -568,9 +592,9 @@
     renderMem(); saveToGitHub();
     document.getElementById('mText').value='';
   }
-
+ 
   function delMem(id) { data.mem=data.mem.filter(m=>m.id!==id); renderMem(); saveToGitHub(); }
-
+ 
   function renderMem() {
     const list = document.getElementById('memList');
     if (!data.mem.length) { list.innerHTML='<div class="empty">记住这一刻</div>'; return; }
@@ -584,10 +608,12 @@
         <button class="del-btn" onclick="delMem(${m.id})">×</button>
       </div>`).join('');
   }
-
+ 
   function renderAll() { renderProg(); renderNotes(); renderWish(); renderMem(); }
-
+ 
+  // ── Init ──
   loadFromGitHub();
 </script>
 </body>
 </html>
+ 
